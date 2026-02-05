@@ -3,7 +3,7 @@ from openpyxl import Workbook
 
 from tables.comm_properties import export_commproperties, SHEET_NAME as COMM_SHEET
 from tables.lock_outs import export_lockouts, SHEET_NAME as LOCK_OUTS_SHEET
-from structure.printer import print_nested_tags_with_limits, save_nested_structure_as_json
+from structure.printer import save_nested_structure_as_json
 
 INPUT_DIR = "input"
 OUTPUT_DIR = "output"
