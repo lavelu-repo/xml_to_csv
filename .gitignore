@@ -4,3 +4,4 @@ input/*
 output/*
 !output/.gitkeep
 formatted/*
+.DS_Store

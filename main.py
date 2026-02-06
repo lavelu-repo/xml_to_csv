@@ -1,9 +1,6 @@
 import os, argparse
 from openpyxl import Workbook
 
-# from tables.comm_properties import export_commproperties, SHEET_NAME as COMM_SHEET
-# from tables.lock_outs import export_lockouts, SHEET_NAME as LOCK_OUTS_SHEET
-# from tables.res_unit_amenities import export_resunitamenities, SHEET_NAME as RES_UNIT_AMENITIES_SHEET
 from structure.printer import save_nested_structure_as_json
 from tables.export_all import export_all_tables
 
@@ -45,14 +42,6 @@ def main():
     if "Sheet" in wb.sheetnames:
         wb.remove(wb["Sheet"])
 
-    # ws = wb.create_sheet(COMM_SHEET)
-    # export_commproperties(xml_path, ws)
-
-    # ws = wb.create_sheet(LOCK_OUTS_SHEET)
-    # export_lockouts(xml_path, ws)
-
-    # ws = wb.create_sheet(RES_UNIT_AMENITIES_SHEET)
-    # export_resunitamenities(xml_path, ws)
     export_all_tables(xml_path, wb)
 
     wb.save(out_path)
