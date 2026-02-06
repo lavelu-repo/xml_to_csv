@@ -6,6 +6,10 @@ from .utils import strip_namespace, safe_text
 SHEET_NAME = "ResPropertyAmenities"
 
 RES_PROPERTY_AMENITIES_COLUMNS: List[str] = [
+    "Record_ID",
+    "Source_ID",
+    "Source_Code",
+    "PropertyId",
     "Name",
     "Amenity",
     "Prior",

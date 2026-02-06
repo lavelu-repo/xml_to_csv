@@ -5,7 +5,20 @@ from .utils import strip_namespace, safe_text
 
 SHEET_NAME = "ResUnitTypes"
 
-RES_UNIT_TYPES_COLUMNS: List[str] = ["Sqft", "Beds", "Baths", "MinRent", "MaxRent"]
+RES_UNIT_TYPES_COLUMNS: List[str] = [
+    "Record_ID",
+    "Source_Id",
+    "Source_Code",
+    "Description",
+    "Rent",
+    "Deposit",
+    "Sqft",
+    "PropertyId",
+    "Beds",
+    "Baths",
+    "MinRent",
+    "MaxRent",
+]
 
 
 def export_resunittypes(xml_path: str, ws: Worksheet) -> None:

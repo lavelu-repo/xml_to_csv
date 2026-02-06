@@ -6,13 +6,21 @@ from .utils import strip_namespace, safe_text
 SHEET_NAME = "CommUnits"
 
 COMM_UNITS_COLUMNS: List[str] = [
+    "Record_ID",
+    "Source_Id",
+    "Source_Code",
+    "PropertyId",
     "Exclude",
+    "UnitTypeId",
+    "Rent",
+    "Sqft",
     "IsRentReady",
     "BuildingId",
     "FloorId",
     "HoldUntil",
     "DateReady",
     "RentalType",
+    "RentObject",
     "TotalRooms",
     "Status",
     "BedroomCount",

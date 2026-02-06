@@ -6,7 +6,29 @@ from .utils import strip_namespace, safe_text
 SHEET_NAME = "ResRoommates"
 
 RES_ROOMMATES_COLUMNS: List[str] = [
+    "Record_ID",
+    "Source_Id",
+    "Source_Code",
+    "TenantId",
+    "LastName",
+    "FirstName",
+    "MiddleName",
+    "Salutation",
+    "Email",
+    "GovernmentId",
+    "MoveIn",
+    "MoveOut",
     "IsOccupant",
+    "AchOptOut",
+    "Relationship",
+    "Notes",
+    "Address1",
+    "Address2",
+    "Address3",
+    "Address4",
+    "City",
+    "State",
+    "ZipCode",
     "sField1",
     "sField2",
     "sField3",
@@ -21,6 +43,8 @@ RES_ROOMMATES_COLUMNS: List[str] = [
     "SPhone2",
     "SPhone3",
     "SPhone4",
+    "OccupantType",
+    "AltEmail",
 ]
 
 

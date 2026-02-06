@@ -45,7 +45,6 @@ def print_nested_tags_with_limits(
 
     walk(root, 0)
 
-
 def save_nested_structure_as_json(
     xml_path: str,
     max_depth: int,
@@ -55,39 +54,42 @@ def save_nested_structure_as_json(
     tree = ET.parse(xml_path)
     root = tree.getroot()
 
+    # Key: (depth, path_tuple) -> counts per tag under that parent path
     printed = defaultdict(lambda: defaultdict(int))
 
-    def build(elem, depth):
+    def build(elem, depth, path):
         if depth > max_depth:
             return None
 
         tag = strip_namespace(elem.tag) if strip_ns else elem.tag
 
-        if printed[depth][tag] >= max_per_tag_per_level:
+        # Limit per (depth + parent path), not globally per depth
+        key = (depth, tuple(path))
+        if printed[key][tag] >= max_per_tag_per_level:
             return None
-        printed[depth][tag] += 1
+        printed[key][tag] += 1
 
         children = list(elem)
-        has_children = len(children) > 0
-
-        # Leaf element => ""
-        if not has_children:
+        if not children:
             return {tag: ""}
 
-        # Has children but we're at the depth limit => show container, but don't expand
         if depth >= max_depth:
             return {tag: {}}
 
-        # Expand children
         node_obj = {}
+        next_path = path + [tag]
+
         for child in children:
-            child_node = build(child, depth + 1)
+            child_node = build(child, depth + 1, next_path)
             if child_node:
-                node_obj.update(child_node)
+                # keep first occurrence of each child tag in this structure view
+                for k, v in child_node.items():
+                    if k not in node_obj:
+                        node_obj[k] = v
 
         return {tag: node_obj if node_obj else {}}
 
-    structure = build(root, 0)
+    structure = build(root, 0, [])
 
     base = os.path.splitext(os.path.basename(xml_path))[0]
     os.makedirs(OUTPUT_DIR, exist_ok=True)

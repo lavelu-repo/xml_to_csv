@@ -6,6 +6,8 @@ from .utils import strip_namespace, safe_text
 SHEET_NAME = "ResUnitTypeDetails"
 
 RES_UNIT_TYPE_DETAILS_COLUMNS: List[str] = [
+    "Record_ID",
+    "Source_ID",
     "UnitTypeId",
     "Amount",
     "IsTaxable",
@@ -13,6 +15,7 @@ RES_UNIT_TYPE_DETAILS_COLUMNS: List[str] = [
     "MoveIn",
     "Remarks",
     "Acct",
+    "ChargeCodeId",
     "IsRequired",
     "IsModified",
     "Instances",
