@@ -1,6 +1,9 @@
 import xml.etree.ElementTree as ET
 from typing import Callable, Dict, List, Optional
 from openpyxl.worksheet.worksheet import Worksheet
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def strip_namespace(tag: str) -> str:
@@ -30,12 +33,14 @@ def export_table_to_sheet(
     - columns: ordered list of column names to output
     - root_path: optional container path to enforce context (e.g. ["DataSection","ResUnitAmenities"])
     """
+    logger.info("Exporting sheet %s (row_tag=%s)", sheet_name, row_tag)
     ws.title = sheet_name
     ws.append(columns)
 
     context = ET.iterparse(xml_path, events=("start", "end"))
     stack: List[str] = []
     parents: List[ET.Element] = []
+    rows_written = 0
 
     def in_root_path() -> bool:
         if not root_path:
@@ -65,6 +70,10 @@ def export_table_to_sheet(
                     row_map[key] = safe_txt(child.text)
 
             ws.append([row_map[c] for c in columns])
+            rows_written += 1
+            if logger.isEnabledFor(10):
+                # DEBUG level (10) shows row detail
+                logger.debug("Appended row to %s: %s", ws.title, {k: v for k, v in row_map.items() if v})
 
             # memory-friendly clearing
             elem.clear()
@@ -76,3 +85,5 @@ def export_table_to_sheet(
 
         stack.pop()
         parents.pop()
+
+    logger.info("Wrote %d rows to sheet %s", rows_written, sheet_name)

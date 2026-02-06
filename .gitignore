@@ -5,3 +5,5 @@ output/*
 !output/.gitkeep
 formatted/*
 .DS_Store
+__pycache__/
+.pytest_cache/

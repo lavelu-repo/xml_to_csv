@@ -1,6 +1,9 @@
 import xml.etree.ElementTree as ET
 from collections import defaultdict
 import json, os
+import logging
+
+logger = logging.getLogger(__name__)
 
 OUTPUT_DIR = "output"
 
@@ -107,6 +110,7 @@ def save_nested_structure_as_json(
     max_per_tag_per_level: int = 2,
     strip_ns: bool = True,
 ) -> None:
+    logger.info("Building structure for %s (max_depth=%d)", xml_path, max_depth)
     tree = ET.parse(xml_path)
     root = tree.getroot()
 
@@ -161,4 +165,4 @@ def save_nested_structure_as_json(
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(structure, f, indent=2)
 
-    print(f"✅ Structure JSON written to: {out_path}")
+    logger.info("✅ Structure JSON written to: %s", out_path)
